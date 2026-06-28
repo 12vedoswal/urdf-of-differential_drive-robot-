@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="empty">
+
+    <!-- Physics -->
+    <physics type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <!-- Gazebo Systems -->
+    <plugin name="physics" filename="gz-sim-physics-system"/>
+    <plugin name="user_commands" filename="gz-sim-user-commands-system"/>
+    <plugin name="scene_broadcaster" filename="gz-sim-scene-broadcaster-system"/>
+    <plugin name="contact" filename="gz-sim-contact-system"/>
+    <plugin name="sensors" filename="gz-sim-sensors-system">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <!-- Gravity -->
+    <gravity>0 0 -9.81</gravity>
+
+    <!-- Ground Plane -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Simple Box Obstacle -->
+    <model name="box">
+      <pose>2 1 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+        </visual>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166</ixx>
+            <iyy>0.166</iyy>
+            <izz>0.166</izz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <!-- Sun -->
+    <light name="sun" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+  </world>
+</sdf>
